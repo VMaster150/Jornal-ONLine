@@ -1,0 +1,71 @@
+.della-respira-regular {
+  font-family: "Della Respira", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.body {
+    background-color:rgb(255, 249, 249);
+}
+
+.h1 {
+    font-family: "Della Respira", serif;
+    font-weight: 700;
+    color:black;
+}
+
+.header{
+    background-color: rgb(255, 249, 249);
+    text-align: center;
+    width: 100rem;
+}
+
+nav ul {
+    justify-content: center;
+    list-style-type: none;
+    display: flex;
+    gap: 1.88rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+nav a:hover{
+    color: #0066cc;
+}
+
+
+.search-box {
+    display: flex;
+    align-items: center;
+}
+
+.search-box input {
+    padding: .5rem;
+    border: .0625rem solid #ccc;
+    border-radius: .25rem 0 0 .25rem;
+    outline: none;
+    height: 1.875rem;
+    width: 6.6875rem;
+}
+
+.search-box button {
+    padding: .5rem .625rem;
+    border: .0625rem solid #ccc;
+    border-radius: 0 .25rem .25rem 0;
+    background-color: #e3f1ff;
+    color: white;
+    cursor: pointer;
+    height: 1.875rem;
+}
+
+
+.subtittle{
+    text-align: center;
+    background-color: whitesmoke;
+    width: 100rem;
+    height: 6.25rem;
+}
