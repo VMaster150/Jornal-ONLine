@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Jornal - Publicar Notícias</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <div class="admin-container">
+        <h2>Painel de Publicação</h2>
+        
+        <form id="form-admin">
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo" placeholder="Digite o título aqui" required>
+
+            <label for="secao">Onde ela vai aparecer?:</label>
+            <select id="secao" required>
+                <option value="principal">Manchete Principal (Esquerda)</option>
+                <option value="lateral_1">Lateral Superior (Direita)</option>
+                <option value="lateral_2">Lateral Inferior (Direita)</option>
+            </select>
+
+            <label for="conteudo">Conteúdo / Corpo da Notícia:</label>
+            <textarea id="conteudo" rows="8" placeholder="Escreva o texto completo da notícia aqui..." required></textarea>
+            
+            <label for="imagem_url">Link da Imagem da Notícia:</label>
+            <input type="text" id="imagem_url" placeholder="Cole a URL de uma imagem...">
+            
+            <button type="submit">Publicar Notícia e Arquivar Antiga</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

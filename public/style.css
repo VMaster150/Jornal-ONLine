@@ -127,13 +127,13 @@ nav.nav-main ul li a:hover, nav.nav-main ul li a.active {
     margin-bottom: 15px;
 }
 
-.story-content {
+.conteudo-da-noticia {
     display: grid;
     grid-template-columns: 1fr 2fr; /* Texto na esquerda, Imagem na direita dentro da manchete */
     gap: 20px;
 }
 
-.lead-text {
+.texto-curto {
     font-family: Arial, sans-serif;
     font-size: 1rem;
     line-height: 1.5;
@@ -146,24 +146,24 @@ nav.nav-main ul li a:hover, nav.nav-main ul li a.active {
     display: block;
 }
 
-.image-caption {
+.legenda-imagem {
     font-family: Arial, sans-serif;
     font-size: 0.8rem;
     color: #666;
     margin-top: 5px;
 }
 
-/* Coluna Lateral (Direita) */
-.side-stories {
+/* coluna da direita */
+.side-noticia {
     border-left: 1px solid #ddd;
     padding-left: 20px;
 }
 
-.side-article {
+.side-artigo {
     margin-bottom: 20px;
 }
 
-.side-article h4 {
+.side-artigo h4 {
     font-family: Arial, sans-serif;
     font-size: 0.9rem;
     font-weight: bold;
@@ -171,13 +171,13 @@ nav.nav-main ul li a:hover, nav.nav-main ul li a.active {
     margin-bottom: 10px;
 }
 
-.side-article h5 {
+.side-artigo h5 {
     font-size: 1.3rem;
     line-height: 1.2;
     margin-bottom: 8px;
 }
 
-.side-article p {
+.side-artigo p {
     font-family: Arial, sans-serif;
     font-size: 0.9rem;
     color: #555;
@@ -200,10 +200,67 @@ hr {
         grid-template-columns: 1fr;
     }
     
-    .side-stories {
+    .side-noticia {
         border-left: none;
         padding-left: 0;
         border-top: 2px solid #111;
         padding-top: 25px;
     }
+}
+
+
+
+                                               /* CONTAINER DO OUTDOOR */
+.outdoor {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 30px auto; /* Espaçamento inferior antes das notícias */
+    height: 400px; /* Altura do seu outdoor */
+    overflow: hidden; /* Esconde as imagens que estão fora da área visível */
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+/* o trilho dos banners */
+.outdoor-trilho {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s ease-in-out; /*Suaviza a transição do movimento */
+}
+
+/* banners sozinhos */
+.banner-outdoor {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: block;
+}
+
+.banner-outdoor img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* legenda de cada banner/outdoor*/
+.legenda-outdoor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.40); /* Fundo preto meio transparente */
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 1.1rem;
+    padding: 15px;
+    text-align: center;
+}
+
+.outdoor-slide:hover .legenda-outdoor {
+    background: rgba(0, 0, 0, 0.75); /* Escurece um pouco ao passar o mouse */
+    text-decoration: underline;
 }
