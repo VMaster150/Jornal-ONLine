@@ -4,40 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-    <title>Document</title>
+    <title>Jornal ONLine</title>
 </head>
 <body>
-    <div class= "header">
-        <h1>TESTE</h1>
-    </div>
 
-    <nav>
+    <header class="main-header">
+        <h1>Jornal ONLine</h1>
+        <p class="date">Terça-feira, 2 de Junho de 2026</p>
+    </header>
+
+    <nav class="nav-main">
         <ul>
             <li><a href="#inicio">Início</a></li>
-            <li><a href="#noticias">Notícias</a></li>
+            <li><a href="#noticias" class="active">Notícias</a></li>
             <li><a href="#calendario">Calendário</a></li>
             <li><a href="#cursos">Cursos</a></li>
             <li><a href="#eventos">Eventos</a></li>
-            <li><a>|</a></li>
+            <li class="separator">|</li>
             <li><a href="#duvidas">Dúvidas</a></li>
             <li><a href="#contatos">Contatos</a></li>
-            <li><a href="#perfil">Pefil</a></li>
+            <li><a href="#perfil">Perfil</a></li>
             <li><a href="#sobre">Sobre</a></li>
             <li class="search-box">
-                <input type="search" placeholder="Pesquisar. . ." id="search-bar">
+                <input type="search" placeholder="Pesquisar..." id="search-bar">
                 <button type="button">🔍</button>
             </li>
         </ul>
     </nav>
 
-    <div class="subtittle">
-        <nav>
-            <ul>
-                <li></li>
-            </ul>
-        </nav>
-    </div>
+    <div class="sub-nav"></div>
 
-    <script src="script.js"></script>
+    <main class="journal-container grid-layout" id="conteudo-dinamico">
+    
+        <section class="main-story noticia-item">
+            <h2 class="editorial-tag">'DESTAQUE ACADÊMICO'</h2>
+            <h3 class="main-title">Faculdade anuncia novos investimentos em laboratórios de tecnologia e inovação</h3>
+            
+            <div class="story-content">
+                <p class="lead-text">
+                    O reitor confirmou a liberação de verbas para a modernização dos blocos de engenharia e TI, visando projetos de inteligência artificial.
+                </p>
+                <div class="story-image">
+                    <img src="https://images.pexels.com/photos/20670596/pexels-photo-20670596.jpeg?_gl=1*onojcj*_ga*NzIxMjA4NTAuMTc4MDQ1NzE1OQ..*_ga_8JE65Q40S6*czE3ODA0NTcxNTkkbzEkZzEkdDE3ODA0NTcyMzUkajU5JGwwJGgw" alt="alunos">
+                    <p class="image-caption">Alunos celebram a chegada dos novos equipamentos para o campus.</p>
+                </div>
+            </div>
+        </section>
+
+        <aside class="side-stories">
+            <article class="side-article noticia-item">
+                <h4>E DEPOIS DA VISITA DO DIRETOR...</h4>
+                <h5>Centro Acadêmico propõe novas regras para a utilização do espaço de convivência</h5>
+                <p>Após reuniões, mudanças visam maior organização e horários estendidos para os estudantes do período noturno.</p>
+            </article>
+
+            <hr>
+
+            <article class="side-article noticia-item">
+                <h4>O OUTRO LADO DA MOEDA</h4>
+                <h5>Estacionamento do campus passa por reformas e gera debate sobre vagas</h5>
+                <p>Abertura de novas vagas de pátio divide opiniões entre ciclistas e motoristas de aplicativos.</p>
+            </article>
+        </aside>
+</main>
+
+    <script src="js/script.js"></script>
 </body>
-</html>>
+</html>

@@ -1,71 +1,209 @@
-.della-respira-regular {
-  font-family: "Della Respira", serif;
-  font-weight: 400;
-  font-style: normal;
+/* Configurações Gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.body {
-    background-color:rgb(255, 249, 249);
+body {
+    font-family: 'Times New Roman', Times, serif; /* Estilo clássico de jornal */
+    background-color: #ffffff;
+    color: #111111;
+    padding: 10px 20px;
 }
 
-.h1 {
-    font-family: "Della Respira", serif;
-    font-weight: 700;
-    color:black;
-}
-
-.header{
-    background-color: rgb(255, 249, 249);
+/* Cabeçalho */
+.main-header {
     text-align: center;
-    width: 100rem;
+    padding: 20px 0 10px 0;
 }
 
-nav ul {
-    justify-content: center;
-    list-style-type: none;
+.main-header h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.date {
+    font-family: Arial, sans-serif;
+    font-size: 0.85rem;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0;
+    margin-top: 10px;
+    color: #555;
+}
+
+/* Menu de Navegação */
+nav.nav-main {
+    border-bottom: 1px solid #111;
+    padding: 8px 0;
+}
+
+nav.nav-main ul {
+    list-style: none;
     display: flex;
-    gap: 1.88rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-nav a {
+nav.nav-main ul li a {
     text-decoration: none;
-    color: #333;
+    color: #222;
+    font-family: Arial, sans-serif;
+    font-size: 0.85rem;
     font-weight: bold;
 }
 
-nav a:hover{
-    color: #0066cc;
+nav.nav-main ul li a:hover, nav.nav-main ul li a.active {
+    color: #000;
+    text-decoration: underline;
 }
 
+.separator {
+    color: #ccc;
+    font-family: Arial, sans-serif;
+}
 
+/* Barra de Pesquisa dentro do Menu */
 .search-box {
     display: flex;
     align-items: center;
+    margin-left: 10px;
 }
 
 .search-box input {
-    padding: .5rem;
-    border: .0625rem solid #ccc;
-    border-radius: .25rem 0 0 .25rem;
-    outline: none;
-    height: 1.875rem;
-    width: 6.6875rem;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 3px 0 0 3px;
 }
 
 .search-box button {
-    padding: .5rem .625rem;
-    border: .0625rem solid #ccc;
-    border-radius: 0 .25rem .25rem 0;
-    background-color: #e3f1ff;
-    color: white;
+    padding: 4px 8px;
+    background: #f4f4f4;
+    border: 1px solid #ccc;
+    border-left: none;
     cursor: pointer;
-    height: 1.875rem;
+    border-radius: 0 3px 3px 0;
 }
 
+/* Espaço em branco abaixo do menu */
+.sub-nav {
+    height: 15px;
+    margin-bottom: 20px;
+}
 
-.subtittle{
-    text-align: center;
-    background-color: whitesmoke;
-    width: 100rem;
-    height: 6.25rem;
+/* Layout de Duas Colunas (Grid) */
+.journal-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Coluna da esquerda é o dobro da direita */
+}
+
+/* Coluna Principal (Esquerda) */
+.main-story {
+    display: flex;
+    flex-direction: column;
+}
+
+.editorial-tag {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.main-title {
+    font-size: 2.2rem;
+    line-height: 1.1;
+    margin-bottom: 15px;
+}
+
+.story-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Texto na esquerda, Imagem na direita dentro da manchete */
+    gap: 20px;
+}
+
+.lead-text {
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #444;
+}
+
+.story-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.image-caption {
+    font-family: Arial, sans-serif;
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Coluna Lateral (Direita) */
+.side-stories {
+    border-left: 1px solid #ddd;
+    padding-left: 20px;
+}
+
+.side-article {
+    margin-bottom: 20px;
+}
+
+.side-article h4 {
+    font-family: Arial, sans-serif;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #111;
+    margin-bottom: 10px;
+}
+
+.side-article h5 {
+    font-size: 1.3rem;
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+
+.side-article p {
+    font-family: Arial, sans-serif;
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+/* Responsividade para Celulares */
+@media (max-width: 768px) {
+    .grid-layout {
+        grid-template-columns: 1fr; /* Vira uma coluna única no celular */
+    }
+    
+    .story-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .side-stories {
+        border-left: none;
+        padding-left: 0;
+        border-top: 2px solid #111;
+        padding-top: 25px;
+    }
 }
