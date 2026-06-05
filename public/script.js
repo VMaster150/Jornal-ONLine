@@ -109,10 +109,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (noticia.secao === 'principal') {
                     const tituloPrincipal = document.querySelector(".main-title");
+                    const subtituloPrincipal = document.querySelector(".main-subtitle");
                     const textoPrincipal = document.querySelector(".texto-curto");
                     const fotoNoticia = document.querySelector(".story-image img");
 
                     if (tituloPrincipal) tituloPrincipal.innerText = noticia.titulo;
+                    if (subtituloPrincipal) subtituloPrincipal.innerText = noticia.subtitulo || "";
                     if (textoPrincipal) textoPrincipal.innerText = noticia.conteudo;
                     if (fotoNoticia && imgUrl) {
                         fotoNoticia.src = imgUrl;
@@ -122,7 +124,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     const articulos = document.querySelectorAll(".side-artigo");
                     if (articulos[0]) {
                         articulos[0].querySelector("h5").innerText = noticia.titulo;
-                        articulos[0].querySelector("p").innerText = noticia.conteudo;
+                        const sub = articulos[0].querySelector(".side-subtitle");
+                        if (sub) sub.innerText = noticia.subtitulo || "";
+                        articulos[0].querySelector("p:last-of-type").innerText = noticia.conteudo;
                         const img = articulos[0].querySelector(".side-image img");
                         if (img && imgUrl) {
                             img.src = imgUrl;
@@ -134,7 +138,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     const articulos = document.querySelectorAll(".side-artigo");
                     if (articulos[1]) {
                         articulos[1].querySelector("h5").innerText = noticia.titulo;
-                        articulos[1].querySelector("p").innerText = noticia.conteudo;
+                        const sub = articulos[1].querySelector(".side-subtitle");
+                        if (sub) sub.innerText = noticia.subtitulo || "";
+                        articulos[1].querySelector("p:last-of-type").innerText = noticia.conteudo;
                         const img = articulos[1].querySelector(".side-image img");
                         if (img && imgUrl) {
                             img.src = imgUrl;

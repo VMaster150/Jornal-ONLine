@@ -7,40 +7,42 @@ const formulario = document.getElementById("form-admin");
 
 formulario.addEventListener("submit", async (evento) => {
     evento.preventDefault();
+const titulo = document.getElementById("titulo").value;
+const subtitulo = document.getElementById("subtitulo").value;
+const secao = document.getElementById("secao").value;
+const conteudo = document.getElementById("conteudo").value;
+const imagem_url = document.getElementById("imagem_url").value;
 
-    const titulo = document.getElementById("titulo").value;
-    const secao = document.getElementById("secao").value;
-    const conteudo = document.getElementById("conteudo").value;
-    const imagem_url = document.getElementById("imagem_url").value;
+const btnEnviar = formulario.querySelector("button");
+const textoOriginalBtn = btnEnviar.innerText;
 
-    const btnEnviar = formulario.querySelector("button");
-    const textoOriginalBtn = btnEnviar.innerText;
+try {
+    btnEnviar.disabled = true;
+    btnEnviar.innerText = "Publicando...";
 
-    try {
-        btnEnviar.disabled = true;
-        btnEnviar.innerText = "Publicando...";
+    // 1. Procura a notícia que está 'ativa' nessa seção e altera o status para 'arquivada'
+    const { error: updateError } = await supabaseApp
+        .from('noticias')
+        .update({ status: 'arquivada' })
+        .eq('secao', secao)
+        .eq('status', 'ativa');
 
-        // 1. Procura a notícia que está 'ativa' nessa seção e altera o status para 'arquivada'
-        const { error: updateError } = await supabaseApp
-            .from('noticias')
-            .update({ status: 'arquivada' })
-            .eq('secao', secao)
-            .eq('status', 'ativa');
+    if (updateError) {
+        console.error("Aviso ao arquivar notícia antiga:", updateError.message);
+        // Não interrompemos o processo se falhar ao arquivar, pois pode não haver notícia ativa.
+    }
 
-        if (updateError) {
-            console.error("Aviso ao arquivar notícia antiga:", updateError.message);
-        }
-
-        // 2. Insere a nova notícia como 'ativa'
-        const { error: insertError } = await supabaseApp
-            .from('noticias')
-            .insert([{ 
-                titulo, 
-                conteudo, 
-                secao, 
-                imagem_url: imagem_url || null, 
-                status: 'ativa'
-            }]);
+    // 2. Insere a nova notícia como 'ativa'
+    const { error: insertError } = await supabaseApp
+        .from('noticias')
+        .insert([{ 
+            titulo, 
+            subtitulo,
+            conteudo, 
+            secao, 
+            imagem_url: imagem_url || null, 
+            status: 'ativa'
+        }]);
 
         if (insertError) throw insertError;
 
