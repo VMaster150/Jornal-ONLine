@@ -24,10 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const textoNoticia = noticia.innerText.toLowerCase();
             
             if (termoBusca === "" || textoNoticia.includes(termoBusca)) {
-                noticia.style.display = ""; // Mostra a notícia
+                noticia.style.display = ""; //mostra a notícia
                 encontrouAlgo = true;
             } else {
-                noticia.style.display = "none"; // Esconde a notícia que não coincide
+                noticia.style.display = "none";
             }
         });
 
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (searchBar) searchBar.addEventListener("input", executarBusca);
     if (searchBtn) searchBtn.addEventListener("click", executarBusca);
 
-    // REDIRECIONAMENTO E ALTERNAÇÃO DE ABAS
+                    // REDIRECIONAMENTO E ALTERNAÇÃO DE ABAS
     navLinks.forEach(link => {
         link.addEventListener("click", (evento) => {
             const hrefAlvo = link.getAttribute("href");
@@ -58,11 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             evento.preventDefault();
             
-            // Remove a classe 'active' de todos os links e adiciona no clicado
+            //remove a classe active de todos os links e adiciona no clicado
             navLinks.forEach(l => l.classList.remove("active"));
             link.classList.add("active");
 
-            // Limpa mensagens de erro de busca se houver
+            //apaga a mensagem de erro
             searchBar.value = "";
 
             const outdoor = document.querySelector(".outdoor");
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 conteudoDinamico.innerHTML = htmlAbaNoticias;
                 conteudoDinamico.classList.add("grid-layout");
                 if (outdoor) outdoor.style.display = "block";
-                puxarNoticiasDoBanco(); // Recarrega notícias ao voltar
+                puxarNoticiasDoBanco(); //recarrega noticias quando voltar
             } else {
                 conteudoDinamico.classList.remove("grid-layout");
                 if (outdoor) outdoor.style.display = "none";
@@ -105,6 +105,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (error) throw error;
 
             noticias.forEach(noticia => {
+                const imgUrl = noticia.imagem_url || noticia.image_url;
+
                 if (noticia.secao === 'principal') {
                     const tituloPrincipal = document.querySelector(".main-title");
                     const textoPrincipal = document.querySelector(".texto-curto");
@@ -112,8 +114,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     if (tituloPrincipal) tituloPrincipal.innerText = noticia.titulo;
                     if (textoPrincipal) textoPrincipal.innerText = noticia.conteudo;
-                    if (fotoNoticia && noticia.imagem_url) {
-                        fotoNoticia.src = noticia.imagem_url;
+                    if (fotoNoticia && imgUrl) {
+                        fotoNoticia.src = imgUrl;
                     }
                 } 
                 else if (noticia.secao === 'lateral_1') {
@@ -121,6 +123,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (articulos[0]) {
                         articulos[0].querySelector("h5").innerText = noticia.titulo;
                         articulos[0].querySelector("p").innerText = noticia.conteudo;
+                        const img = articulos[0].querySelector(".side-image img");
+                        if (img && imgUrl) {
+                            img.src = imgUrl;
+                            img.style.display = "block";
+                        }
                     }
                 } 
                 else if (noticia.secao === 'lateral_2') {
@@ -128,6 +135,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (articulos[1]) {
                         articulos[1].querySelector("h5").innerText = noticia.titulo;
                         articulos[1].querySelector("p").innerText = noticia.conteudo;
+                        const img = articulos[1].querySelector(".side-image img");
+                        if (img && imgUrl) {
+                            img.src = imgUrl;
+                            img.style.display = "block";
+                        }
                     }
                 }
             });

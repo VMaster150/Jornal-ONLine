@@ -29,7 +29,6 @@ formulario.addEventListener("submit", async (evento) => {
 
         if (updateError) {
             console.error("Aviso ao arquivar notícia antiga:", updateError.message);
-            // Não interrompemos o processo se falhar ao arquivar, pois pode não haver notícia ativa.
         }
 
         // 2. Insere a nova notícia como 'ativa'
