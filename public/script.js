@@ -1,7 +1,7 @@
+// CONEXÃO SUPABASE
 const SUPABASE_URL = "https://jvwsowhcvydvrqfrxkwm.supabase.co";
 const SUPABASE_KEY = "sb_publishable_QIhLLvU6ovWBkshGfm2bww_Bl7mk1Uz";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
 
 document.addEventListener("DOMContentLoaded", () => {
     // Seleção de elementos do DOM
@@ -13,23 +13,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // Guardamos o HTML original da aba de notícias para poder voltar a ele depois
     const htmlAbaNoticias = conteudoDinamico.innerHTML;
 
-    //SISTEMA DE BUSCA/PESQUISA EM TEMPO REAL
+    // SISTEMA DE BUSCA/PESQUISA EM TEMPO REAL
     function executarBusca() {
         const termoBusca = searchBar.value.toLowerCase().trim();
         const noticias = document.querySelectorAll(".noticia-item");
         let encontrouAlgo = false;
 
-        // Se o usuário limpou a barra de busca, exibe todas as notícias novamente
-        if (termoBusca === "") {
-            noticias.forEach(noticia => noticia.style.display = "");
-            return;
-        }
-
         // Percorre cada notícia para verificar se o termo bate com o texto
         noticias.forEach(noticia => {
             const textoNoticia = noticia.innerText.toLowerCase();
             
-            if (textoNoticia.includes(termoBusca)) {
+            if (termoBusca === "" || textoNoticia.includes(termoBusca)) {
                 noticia.style.display = ""; // Mostra a notícia
                 encontrouAlgo = true;
             } else {
@@ -39,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Feedback visual caso nenhuma notícia seja encontrada
         const erroExistente = document.getElementById("busca-erro");
-        if (!encontrouAlgo) {
+        if (!encontrouAlgo && termoBusca !== "") {
             if (!erroExistente) {
                 const mensagemErro = document.createElement("p");
                 mensagemErro.id = "busca-erro";
@@ -53,37 +47,35 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    searchBar.addEventListener("input", executarBusca);
-    searchBtn.addEventListener("click", executarBusca);
+    if (searchBar) searchBar.addEventListener("input", executarBusca);
+    if (searchBtn) searchBtn.addEventListener("click", executarBusca);
 
-
-    //REDIRECIONAMENTO E ALTERNAÇÃO DE ABAS
+    // REDIRECIONAMENTO E ALTERNAÇÃO DE ABAS
     navLinks.forEach(link => {
         link.addEventListener("click", (evento) => {
+            const hrefAlvo = link.getAttribute("href");
+            if (!hrefAlvo || hrefAlvo.startsWith("http") || hrefAlvo === "javascript:void(0)") return;
+
+            evento.preventDefault();
+            
             // Remove a classe 'active' de todos os links e adiciona no clicado
             navLinks.forEach(l => l.classList.remove("active"));
-            const hrefAlvo = link.getAttribute("href");
-            if (!hrefAlvo || hrefAlvo === "#") return;
-
-            evento.preventDefault(); // Evita que a página recarregue
             link.classList.add("active");
 
             // Limpa mensagens de erro de busca se houver
             searchBar.value = "";
 
-            // O container do outdoor agora usa a classe .outdoor
             const outdoor = document.querySelector(".outdoor");
 
-            // Verifica qual foi clicada
             if (hrefAlvo === "#noticias" || hrefAlvo === "#inicio") {
                 conteudoDinamico.innerHTML = htmlAbaNoticias;
                 conteudoDinamico.classList.add("grid-layout");
-                if (outdoor) outdoor.style.display = "block"; // Mostra o outdoor
+                if (outdoor) outdoor.style.display = "block";
+                puxarNoticiasDoBanco(); // Recarrega notícias ao voltar
             } else {
-                conteudoDinamico.classList.remove("grid-layout"); //remode grid das outras abas
-                if (outdoor) outdoor.style.display = "none"; // Esconde o outdoor
+                conteudoDinamico.classList.remove("grid-layout");
+                if (outdoor) outdoor.style.display = "none";
                 
-                // Simula criar nova aba para o menu
                 const nomeAba = link.innerText;
                 conteudoDinamico.innerHTML = `
                     <div style="padding: 40px 0; font-family: Arial, sans-serif; text-align: center; width: 100%;">
@@ -94,7 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 `;
 
-                // botão pra voltar para a pagina inicial
                 document.getElementById("voltar-home").addEventListener("click", () => {
                     const inicioLink = document.querySelector('a[href="#inicio"]');
                     if (inicioLink) inicioLink.click();
@@ -103,16 +94,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-                                          // CONEXÃO SUPABASE CONFIGURADA
-const SUPABASE_URL = "https://jvwsowhcvydvrqfrxkwm.supabase.co";
-const SUPABASE_KEY = "COLE_AQUI_SUA_CHAVE_SB_PUBLISHABLE"; // Substitua pelo token do passo anterior
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-   
-                                 // CARREGAR NOTÍCIAS DO BANCO DE DADOS
+    // CARREGAR NOTÍCIAS DO BANCO DE DADOS
     async function puxarNoticiasDoBanco() {
         try {
-            //procura registros ativos(noticias ativas)
             const { data: noticias, error } = await supabaseClient
                 .from('noticias')
                 .select('*')
@@ -120,17 +104,14 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
             if (error) throw error;
 
-            //distribui corretamente
             noticias.forEach(noticia => {
                 if (noticia.secao === 'principal') {
                     const tituloPrincipal = document.querySelector(".main-title");
-                    const textoPrincipal = document.querySelector(".lead-text");
+                    const textoPrincipal = document.querySelector(".texto-curto");
+                    const fotoNoticia = document.querySelector(".story-image img");
+
                     if (tituloPrincipal) tituloPrincipal.innerText = noticia.titulo;
                     if (textoPrincipal) textoPrincipal.innerText = noticia.conteudo;
-                    document.querySelector(".main-title").innerText = noticia.titulo;
-                    document.querySelector(".lead-text").innerText = noticia.conteudo;
-
-                    const fotoNoticia = document.querySelector(".story-image img");
                     if (fotoNoticia && noticia.imagem_url) {
                         fotoNoticia.src = noticia.imagem_url;
                     }
@@ -151,37 +132,14 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
                 }
             });
         } catch (err) {
-            console.error("Erro ao puxar dados do PostgreSQL:", err.message);
+            console.error("Erro ao puxar dados do Banco de Dados:", err.message);
         }
     }
 
     // Dispara a busca no PostgreSQL assim que a página abre
     puxarNoticiasDoBanco();
 
-
-                                    //SISTEMA DE BUSCA EM TEMPO REAL
-    const searchBar = document.getElementById("search-bar");
-    const searchBtn = document.querySelector(".search-box button");
-
-    function executarBusca() {
-        const termoBusca = searchBar.value.toLowerCase().trim();
-        const noticias = document.querySelectorAll(".noticia-item");
-
-        noticias.forEach(noticia => {
-            const textoNoticia = noticia.innerText.toLowerCase();
-            if (textoNoticia.includes(termoBusca) || termoBusca === "") {
-                noticia.style.display = ""; 
-            } else {
-                noticia.style.display = "none"; 
-            }
-        });
-    }
-
-    if (searchBar) searchBar.addEventListener("input", BallsBusca);
-    if (searchBtn) searchBtn.addEventListener("click", executarBusca);
-
-
-   //outdoor funcionando(carrocel)
+                                                         // OUTDOOR (CARROSSEL)
     const trilho = document.getElementById("outdoor-trilho");
     const slides = document.querySelectorAll(".banner-outdoor");
     let indiceAtual = 0;
@@ -189,29 +147,16 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     function moverOutdoor() {
         if (totalSlides === 0) return;
-        
-        indiceAtual++;
-
-        //quando chega no ultimo volta pro primeiro
-        if (indiceAtual >= totalSlides) {
-            indiceAtual = 0;
-        }
-
-        //move o banner pra esquerda
+        indiceAtual = (indiceAtual + 1) % totalSlides;
         if (trilho) {
             trilho.style.transform = `translateX(-${indiceAtual * 100}%)`;
         }
     }
 
-    //configura o outdoor para rodar a cada 4 segundos
-    let loopOutdoor = setInterval(moverOutdoor, 4000);
+    let loopOutdoor = setInterval(moverOutdoor, 5500);
 
-    //pausa o movimento se colocar o mouse em cima
     if (trilho) {
-        trilho.addEventListener("mouseenter", () => {
-            clearInterval(loopOutdoor);
-        });
-        //volta o movimento quando tirar o mouse
+        trilho.addEventListener("mouseenter", () => clearInterval(loopOutdoor));
         trilho.addEventListener("mouseleave", () => {
             clearInterval(loopOutdoor);
             loopOutdoor = setInterval(moverOutdoor, 4000);
