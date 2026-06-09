@@ -3,8 +3,8 @@ const SUPABASE_URL = "https://jvwsowhcvydvrqfrxkwm.supabase.co";
 const SUPABASE_KEY = "sb_publishable_QIhLLvU6ovWBkshGfm2bww_Bl7mk1Uz";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+//DOM
 document.addEventListener("DOMContentLoaded", () => {
-    // Seleção de elementos do DOM
     const searchBar = document.getElementById("search-bar");
     const searchBtn = document.querySelector(".search-box button");
     const navLinks = document.querySelectorAll(".nav-main ul li a");
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Guardamos o HTML original da aba de notícias para poder voltar a ele depois
     const htmlAbaNoticias = conteudoDinamico.innerHTML;
 
-    // ATUALIZAR DATA AUTOMATICAMENTE
+    //mecanica da data atualizavel
     function atualizarData() {
         const elementoData = document.getElementById("data-hoje");
         if (elementoData) {
