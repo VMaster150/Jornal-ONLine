@@ -1,3 +1,7 @@
+if(localStorage.getItem("tipoUsuario") !== "admin"){
+    window.location.href = "../login/login.html";
+}
+
 // CONEXÃO DO SUPABASE
 const SUPABASE_URL = "https://jvwsowhcvydvrqfrxkwm.supabase.co";
 const SUPABASE_KEY = "sb_publishable_QIhLLvU6ovWBkshGfm2bww_Bl7mk1Uz";

@@ -1,3 +1,10 @@
+if(
+    localStorage.getItem("tipoUsuario") !== "publico" &&
+    localStorage.getItem("tipoUsuario") !== "admin"
+){
+    window.location.href = "../login/login.html";
+}
+
 // CONEXÃO SUPABASE
 const SUPABASE_URL = "https://jvwsowhcvydvrqfrxkwm.supabase.co";
 const SUPABASE_KEY = "sb_publishable_QIhLLvU6ovWBkshGfm2bww_Bl7mk1Uz";
@@ -181,3 +188,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+const logout = document.getElementById("logout");
+
+if(logout){
+
+    logout.addEventListener("click", function(){
+
+        localStorage.removeItem("tipoUsuario");
+
+        window.location.href = "../login/login.html";
+
+    });
+}
