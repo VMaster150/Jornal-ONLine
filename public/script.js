@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (noticia.secao === 'principal') {
                     const tituloPrincipal = document.querySelector(".main-title");
-                    const subtituloPrincipal = document.querySelector(".main-subtitle");
+                    const subtituloPrincipal = document.querySelector(".subtitulo");
                     const textoPrincipal = document.querySelector(".texto-curto");
                     const fotoNoticia = document.querySelector(".story-image img");
 
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const articulos = document.querySelectorAll(".side-artigo");
                     if (articulos[0]) {
                         articulos[0].querySelector("h5").innerText = noticia.titulo;
-                        const sub = articulos[0].querySelector(".side-subtitle");
+                        const sub = articulos[0].querySelector(".subtitulo");
                         if (sub) sub.innerText = noticia.subtitulo || "";
                         articulos[0].querySelector("p:last-of-type").innerText = noticia.conteudo;
                         const img = articulos[0].querySelector(".side-image img");
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const articulos = document.querySelectorAll(".side-artigo");
                     if (articulos[1]) {
                         articulos[1].querySelector("h5").innerText = noticia.titulo;
-                        const sub = articulos[1].querySelector(".side-subtitle");
+                        const sub = articulos[1].querySelector(".subtitulo");
                         if (sub) sub.innerText = noticia.subtitulo || "";
                         articulos[1].querySelector("p:last-of-type").innerText = noticia.conteudo;
                         const img = articulos[1].querySelector(".side-image img");
