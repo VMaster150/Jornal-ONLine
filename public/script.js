@@ -13,6 +13,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // Guardamos o HTML original da aba de notícias para poder voltar a ele depois
     const htmlAbaNoticias = conteudoDinamico.innerHTML;
 
+    // ATUALIZAR DATA AUTOMATICAMENTE
+    function atualizarData() {
+        const elementoData = document.getElementById("data-hoje");
+        if (elementoData) {
+            const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const hoje = new Date();
+            elementoData.innerText = hoje.toLocaleDateString('pt-BR', opcoes);
+        }
+    }
+
+    atualizarData();
+
     // SISTEMA DE BUSCA/PESQUISA EM TEMPO REAL
     function executarBusca() {
         const termoBusca = searchBar.value.toLowerCase().trim();

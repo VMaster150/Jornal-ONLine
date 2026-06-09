@@ -3,6 +3,18 @@ const SUPABASE_URL = "https://jvwsowhcvydvrqfrxkwm.supabase.co";
 const SUPABASE_KEY = "sb_publishable_QIhLLvU6ovWBkshGfm2bww_Bl7mk1Uz";
 const supabaseApp = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+// ATUALIZAR DATA AUTOMATICAMENTE
+function atualizarData() {
+    const elementoData = document.getElementById("data-atual");
+    if (elementoData) {
+        const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const hoje = new Date();
+        elementoData.innerText = hoje.toLocaleDateString('pt-BR', opcoes);
+    }
+}
+
+atualizarData();
+
 const formulario = document.getElementById("form-admin");
 
 formulario.addEventListener("submit", async (evento) => {
