@@ -10,8 +10,8 @@ const SUPABASE_URL = "https://jvwsowhcvydvrqfrxkwm.supabase.co";
 const SUPABASE_KEY = "sb_publishable_QIhLLvU6ovWBkshGfm2bww_Bl7mk1Uz";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+//DOM
 document.addEventListener("DOMContentLoaded", () => {
-    // Seleção de elementos do DOM
     const searchBar = document.getElementById("search-bar");
     const searchBtn = document.querySelector(".search-box button");
     const navLinks = document.querySelectorAll(".nav-main ul li a");
@@ -19,6 +19,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Guardamos o HTML original da aba de notícias para poder voltar a ele depois
     const htmlAbaNoticias = conteudoDinamico.innerHTML;
+
+    //mecanica da data atualizavel
+    function atualizarData() {
+        const elementoData = document.getElementById("data-hoje");
+        if (elementoData) {
+            const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const hoje = new Date();
+            elementoData.innerText = hoje.toLocaleDateString('pt-BR', opcoes);
+        }
+    }
+
+    atualizarData();
 
     // SISTEMA DE BUSCA/PESQUISA EM TEMPO REAL
     function executarBusca() {
@@ -116,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (noticia.secao === 'principal') {
                     const tituloPrincipal = document.querySelector(".main-title");
-                    const subtituloPrincipal = document.querySelector(".main-subtitle");
+                    const subtituloPrincipal = document.querySelector(".subtitulo");
                     const textoPrincipal = document.querySelector(".texto-curto");
                     const fotoNoticia = document.querySelector(".story-image img");
 
@@ -131,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const articulos = document.querySelectorAll(".side-artigo");
                     if (articulos[0]) {
                         articulos[0].querySelector("h5").innerText = noticia.titulo;
-                        const sub = articulos[0].querySelector(".side-subtitle");
+                        const sub = articulos[0].querySelector(".subtitulo");
                         if (sub) sub.innerText = noticia.subtitulo || "";
                         articulos[0].querySelector("p:last-of-type").innerText = noticia.conteudo;
                         const img = articulos[0].querySelector(".side-image img");
@@ -145,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const articulos = document.querySelectorAll(".side-artigo");
                     if (articulos[1]) {
                         articulos[1].querySelector("h5").innerText = noticia.titulo;
-                        const sub = articulos[1].querySelector(".side-subtitle");
+                        const sub = articulos[1].querySelector(".subtitulo");
                         if (sub) sub.innerText = noticia.subtitulo || "";
                         articulos[1].querySelector("p:last-of-type").innerText = noticia.conteudo;
                         const img = articulos[1].querySelector(".side-image img");
